@@ -1,8 +1,3 @@
-const os = require("os");
+const math = require("./math");
 
-console.log(os.type());
-console.log(os.version());
-console.log(os.homedir());
-
-console.log(__filename);
-console.log(__dirname);
+console.log(math.multiply(12, 4));
