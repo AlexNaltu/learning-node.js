@@ -1,45 +1,34 @@
-// const fs = require("fs");
-// const path = require("path");
+const fsPromises = require("fs").promises;
+const path = require("path");
 
-// fs.readFile(
-//   path.join(__dirname, "files", "starter.txt"),
-//   "utf8",
-//   (err, data) => {
-//     if (err) throw err;
-//     console.log(data);
-//   }
-// );
+const fileOps = async () => {
+  const data = await fsPromises.readFile(
+    path.join(__dirname, "files", "responseNew.txt"),
+    "utf-8"
+  );
+  console.log(data);
+  await fsPromises.unlink(path.join(__dirname, "files", "responseNew.txt"));
+  await fsPromises.writeFile(
+    path.join(__dirname, "files", "promiseWrite.txt"),
+    data
+  );
+  await fsPromises.appendFile(
+    path.join(__dirname, "files", "promiseWrite.txt"),
+    "Hello From Promise Append\n"
+  );
+  await fsPromises.rename(
+    path.join(__dirname, "files", "promiseWrite.txt"),
+    path.join(__dirname, "files", "promiseWriteRenamed.txt")
+  );
+  const newData = await fsPromises.readFile(
+    path.join(__dirname, "files", "promiseWriteRenamed.txt"),
+    "utf-8"
+  );
+  console.log(newData);
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// console.log("Node.js async programming...");
-
-// fs.writeFile(
-//   path.join(__dirname, "files", "reply.txt"),
-//   "Nice to meet you",
-//   (err) => {
-//     if (err) throw err;
-//     console.log("File written...COMPLETED");
-
-//     fs.appendFile(
-//       path.join(__dirname, "files", "reply.txt"),
-//       "\n\nI'm a software developer",
-//       (err) => {
-//         if (err) throw err;
-//         console.log("append...COMPLETED");
-//       }
-//     );
-
-//     fs.rename(
-//       path.join(__dirname, "files", "reply.txt"),
-//       path.join(__dirname, "files", "responseNew.txt"),
-//       (err) => {
-//         if (err) throw err;
-//         console.log("reply..COMPLETED");
-//       }
-//     );
-//   }
-// );
-
-// process.on("uncaughtException", (err) => {
-//   console.log(`Uncaught Exception: ${err.message}`);
-//   process.exit(1);
-// });
+fileOps();
