@@ -1,4 +1,6 @@
-const fs = require("fs");
-const path = require("path");
+const { format } = require("date-fns");
+const { v4: uuid } = require("uuid");
 
-console.log("testing222");
+console.log(format(new Date(), "yyyyMMdd\tHH:mm:ss"));
+
+console.log(uuid());
